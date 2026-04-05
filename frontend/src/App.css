@@ -1,34 +1,191 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* LaunchPad AI - Global Styles */
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.App-link {
-    color: #61dafb;
+@keyframes pulse-border {
+  0%, 100% { border-color: #0033FF; }
+  50% { border-color: #FF4500; }
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes progress-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-progress {
+  animation: progress-bar 3s ease-out forwards;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Glassmorphism */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Button styles */
+.btn-primary {
+  background: #0033FF;
+  color: white;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #002FA7;
+  box-shadow: 0 4px 12px rgba(0, 51, 255, 0.3);
+}
+
+.btn-secondary {
+  background: white;
+  color: #0A0A0A;
+  border: 1px solid #E5E7EB;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+}
+
+.btn-accent {
+  background: #FF4500;
+  color: white;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+  background: #E03E00;
+  box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.2s ease;
+  border: 1px solid #E5E7EB;
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border-color: #D1D5DB;
+}
+
+/* Watermark overlay */
+.watermark-overlay {
+  position: relative;
+}
+
+.watermark-overlay::after {
+  content: 'Built with LaunchPad AI';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(0, 51, 255, 0.12);
+  white-space: nowrap;
+  pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Chat bubbles */
+.chat-ai {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  color: #0A0A0A;
+}
+
+.chat-user {
+  background: #0A0A0A;
+  color: white;
+}
+
+/* Overline text */
+.overline {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6B7280;
+}
+
+/* Grid pattern bg */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 51, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 51, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Step indicator active */
+.step-active {
+  background: #0033FF;
+  color: white;
+}
+
+.step-complete {
+  background: #0A0A0A;
+  color: white;
+}
+
+.step-inactive {
+  background: #F3F4F6;
+  color: #9CA3AF;
 }
