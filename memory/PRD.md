@@ -27,7 +27,16 @@ Build a fully functional SaaS web application named "LaunchPad AI" that helps fo
 - Free (watermarked) and Premium (publishable) tiers
 
 ## What's Been Implemented (2026-04-05)
-### Landing Page
+
+### Iteration 1 - MVP
+- Landing Page, Dashboard, AI Wizard, Preview, Media Gen, Publish flow
+- Emergent Google OAuth, wallet system, AI integrations, GitHub publishing
+
+### Iteration 2 - Premium Design + INR + Content Protection (2026-04-05)
+- **INR Pricing**: Free ₹0, Premium ₹9,999 one-time (from ₹23,999, 58% off), Monthly ₹2,499
+- **Apple-like Premium Design**: 3D floating card mockup, gradient text, scroll reveal animations, tilt-hover cards, glassmorphism navbar, premium gold accent
+- **Content Protection**: Right-click disabled, F12/Ctrl+Shift+I/Ctrl+U blocked, text selection disabled (except form inputs), same protections on generated websites
+- **Wallet in INR**: Starting balance ₹10,000, AI content ₹199, Logo ₹499, Image ₹299, Publish ₹999, Upgrade ₹9,999
 - Hero section with "Turn Your Idea Into a Live Website in 2 Minutes" headline
 - Partners/logos row, 3 business paths cards, features grid
 - Pricing cards (Free vs Premium $49), testimonials, FAQ accordion, CTA, footer
