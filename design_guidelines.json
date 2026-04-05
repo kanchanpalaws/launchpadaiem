@@ -1,0 +1,99 @@
+{
+  "theme": "light",
+  "archetype": "4_swiss_high_contrast",
+  "design_philosophy": "Swiss & High-Contrast. Authority, Clarity, Truth. We are building an AI website builder that feels like a precision engineering tool. Minimalist, function-first, with sharp edges, deep blacks, and electrifying cobalt blue for action. The UI should get out of the way to let the generated websites shine.",
+  "colors": {
+    "background": "#FFFFFF",
+    "foreground": "#0A0A0A",
+    "primary": "#0033FF",
+    "primary_foreground": "#FFFFFF",
+    "secondary": "#F3F4F6",
+    "secondary_foreground": "#111827",
+    "muted": "#F9FAFB",
+    "muted_foreground": "#6B7280",
+    "accent": "#FF4500",
+    "accent_foreground": "#FFFFFF",
+    "border": "#E5E7EB",
+    "card": "#FFFFFF",
+    "card_foreground": "#0A0A0A",
+    "sidebar_background": "#F9FAFB"
+  },
+  "typography": {
+    "heading_font": "Outfit",
+    "body_font": "IBM Plex Sans",
+    "mono_font": "JetBrains Mono",
+    "scale": {
+      "h1": "text-5xl sm:text-6xl tracking-tighter font-medium",
+      "h2": "text-3xl sm:text-4xl tracking-tight font-medium",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm text-muted-foreground",
+      "overline": "text-xs tracking-[0.2em] uppercase font-bold text-muted-foreground"
+    }
+  },
+  "spacing_and_layout": {
+    "generous_spacing": true,
+    "marketing_bento_grid": "grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12",
+    "dashboard_grid": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6",
+    "container_padding": "px-6 md:px-12 lg:px-24 py-12 md:py-24"
+  },
+  "components": {
+    "button": {
+      "style": "rounded-none border border-transparent shadow-sm hover:shadow-md transition-all duration-200",
+      "primary": "bg-[#0033FF] text-white hover:bg-[#002FA7]",
+      "secondary": "bg-white text-[#0A0A0A] border-[#E5E7EB] hover:bg-gray-50",
+      "ghost": "hover:bg-gray-100 text-[#0A0A0A]"
+    },
+    "card": {
+      "style": "rounded-none border border-[#E5E7EB] bg-white shadow-none hover:shadow-sm transition-shadow",
+      "padding": "p-8"
+    },
+    "input": {
+      "style": "rounded-none border border-[#E5E7EB] bg-white focus:ring-2 focus:ring-[#0033FF] focus:border-transparent focus:ring-offset-1"
+    },
+    "chatbot": {
+      "ai_bubble": "bg-[#F9FAFB] border border-[#E5E7EB] text-[#0A0A0A] rounded-none p-4",
+      "user_bubble": "bg-[#0A0A0A] text-white rounded-none p-4",
+      "container": "border border-[#E5E7EB] bg-white shadow-sm"
+    },
+    "glassmorphism": {
+      "header": "backdrop-blur-xl bg-white/70 border-b border-black/5"
+    }
+  },
+  "media": {
+    "hero_abstract_bg": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/6b4554a3-35e2-4ff7-8886-8cfcbc0e1ff2/images/86d103f3a69d30713f6b58f2703f73d04bed75b0555f595c780dc2f4add8660c.png",
+      "description": "Abstract 3D geometric background for hero section accents"
+    },
+    "app_mockup": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/6b4554a3-35e2-4ff7-8886-8cfcbc0e1ff2/images/2beccce3a3b583d42002a0f7feec48748e1ea98d72e84d44db4de617f36350c0.png",
+      "description": "Floating app mockup for feature section or product showcase"
+    },
+    "testimonials": [
+      {
+        "url": "https://images.unsplash.com/photo-1765438869321-d60141efd813?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwyfHxzdGFydHVwJTIwZm91bmRlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc3NTM3MzM4NHww&ixlib=rb-4.1.0&q=85",
+        "description": "Founder portrait 1"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758691737644-ef8be18256c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwzfHxzdGFydHVwJTIwZm91bmRlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc3NTM3MzM4NHww&ixlib=rb-4.1.0&q=85",
+        "description": "Founder portrait 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1769071166862-8cc3a6f2ac5c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwxfHxzdGFydHVwJTIwZm91bmRlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc3NTM3MzM4NHww&ixlib=rb-4.1.0&q=85",
+        "description": "Founder portrait 3"
+      }
+    ]
+  },
+  "iconography": "lucide-react",
+  "instructions_to_main_agent": [
+    "MANDATORY: Use pure HTML + Tailwind for marketing pages (Landing Page) to achieve bento grid asymmetry. Do not restrict yourself to Shadcn cards there.",
+    "MANDATORY: Use Shadcn UI for the Dashboard, AI Business Wizard, and Publish Flow, but customize them by setting rounded-none and using crisp 1px borders.",
+    "MANDATORY: Add 'data-testid' to all interactive elements (buttons, inputs, links) using kebab-case role-based names.",
+    "MANDATORY: The hero section must have a stark, high-contrast headline without generic gradients. Let the typography do the heavy lifting.",
+    "MANDATORY: For partner/customer logos on the landing page, use typography-based logos (e.g., 'ACME Corp' in font-black text-gray-300) rather than generic placeholder images.",
+    "MANDATORY: The AI Wizard should feel like a 'Control Room'. Dense, high-contrast, functional. Use pure black or electric blue for active states.",
+    "MANDATORY: Ensure a persistent, visible navigation bar across the site with glassmorphism (backdrop-blur-xl bg-white/70) if content scrolls underneath.",
+    "MANDATORY: All hover states must explicitly define text colors to prevent invisible text on dark backgrounds.",
+    "MANDATORY: Use 'Outfit' for all Headings (H1-H4) and 'IBM Plex Sans' for Body text. Import these from 'next/font/google'."
+  ]
+}
