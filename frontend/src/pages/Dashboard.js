@@ -9,7 +9,7 @@ export default function Dashboard({ user, setUser }) {
   const [wallet, setWallet] = useState({ balance: 0, plan: "free", transactions: [] });
   const [loading, setLoading] = useState(true);
   const [showTopUp, setShowTopUp] = useState(false);
-  const [topUpAmount, setTopUpAmount] = useState(50);
+  const [topUpAmount, setTopUpAmount] = useState(1000);
 
   useEffect(() => {
     loadData();
@@ -108,7 +108,7 @@ export default function Dashboard({ user, setUser }) {
             </div>
             <div className="flex items-center justify-between">
               <p className="text-3xl font-medium text-[#0A0A0A]" style={{ fontFamily: "Outfit" }}>
-                ${wallet.balance?.toFixed(0)}
+                &#8377;{wallet.balance?.toFixed(0)}
               </p>
               <button
                 onClick={() => setShowTopUp(true)}
@@ -131,10 +131,10 @@ export default function Dashboard({ user, setUser }) {
               {wallet.plan === "free" && (
                 <button
                   onClick={handleUpgrade}
-                  className="text-xs bg-[#FF4500] text-white px-3 py-1.5 font-medium hover:bg-[#E03E00] transition-colors"
+                  className="text-xs bg-[#0033FF] text-white px-3 py-1.5 font-medium hover:bg-[#002FA7] transition-colors shadow-sm"
                   data-testid="upgrade-btn"
                 >
-                  Upgrade
+                  Upgrade &#8377;9,999
                 </button>
               )}
             </div>
@@ -147,19 +147,19 @@ export default function Dashboard({ user, setUser }) {
             <div className="bg-white border border-[#E5E7EB] p-8 max-w-sm w-full animate-fade-in" onClick={(e) => e.stopPropagation()} data-testid="topup-modal">
               <h3 className="text-xl font-medium text-[#0A0A0A] mb-4" style={{ fontFamily: "Outfit" }}>Top Up Wallet</h3>
               <div className="flex gap-3 mb-6">
-                {[25, 50, 100, 200].map((amt) => (
+                {[500, 1000, 2000, 5000].map((amt) => (
                   <button
                     key={amt}
                     onClick={() => setTopUpAmount(amt)}
                     className={`flex-1 py-2 text-sm font-medium border transition-colors ${topUpAmount === amt ? "bg-[#0033FF] text-white border-[#0033FF]" : "bg-white text-[#0A0A0A] border-[#E5E7EB] hover:bg-gray-50"}`}
                     data-testid={`topup-${amt}`}
                   >
-                    ${amt}
+                    &#8377;{amt.toLocaleString("en-IN")}
                   </button>
                 ))}
               </div>
               <button onClick={handleTopUp} className="btn-primary w-full py-3 text-sm" data-testid="topup-confirm">
-                <CreditCard className="w-4 h-4 inline mr-2" /> Add ${topUpAmount} to Wallet
+                <CreditCard className="w-4 h-4 inline mr-2" /> Add &#8377;{topUpAmount.toLocaleString("en-IN")} to Wallet
               </button>
             </div>
           </div>
@@ -252,7 +252,7 @@ export default function Dashboard({ user, setUser }) {
                     <p className="text-xs text-[#9CA3AF]">{new Date(txn.created_at).toLocaleString()}</p>
                   </div>
                   <span className={`text-sm font-medium ${txn.type === "credit" ? "text-green-600" : "text-red-500"}`}>
-                    {txn.type === "credit" ? "+" : "-"}${txn.amount}
+                    {txn.type === "credit" ? "+" : "-"}&#8377;{txn.amount?.toLocaleString("en-IN")}
                   </span>
                 </div>
               ))}

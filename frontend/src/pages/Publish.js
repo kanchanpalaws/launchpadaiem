@@ -112,7 +112,7 @@ export default function Publish({ user }) {
               Upgrade to Premium to Publish
             </h2>
             <p className="text-sm text-[#6B7280] mb-6">
-              Publishing to GitHub Pages requires a Premium plan. Upgrade for $49 (one-time) to unlock publishing, watermark removal, and more.
+              Publishing to GitHub Pages requires a Premium plan. Upgrade for &#8377;9,999 (one-time) to unlock publishing, watermark removal, and more.
             </p>
             <button
               onClick={() => navigate("/dashboard")}

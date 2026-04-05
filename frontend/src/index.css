@@ -11,6 +11,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #FFFFFF;
   color: #0A0A0A;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection in form inputs */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 h1, h2, h3, h4, h5, h6 {

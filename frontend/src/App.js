@@ -11,6 +11,38 @@ import MediaGen from "@/pages/MediaGen";
 import Publish from "@/pages/Publish";
 import { authAPI } from "@/lib/api";
 
+// Content Protection - Disable inspect element, right-click, copy
+function useContentProtection() {
+  useEffect(() => {
+    const handleContextMenu = (e) => e.preventDefault();
+    const handleKeyDown = (e) => {
+      // Block F12
+      if (e.key === "F12") { e.preventDefault(); return; }
+      // Block Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && ["I","i","J","j","C","c"].includes(e.key)) { e.preventDefault(); return; }
+      // Block Ctrl+U (view source)
+      if (e.ctrlKey && (e.key === "u" || e.key === "U")) { e.preventDefault(); return; }
+      // Block Ctrl+S (save)
+      if (e.ctrlKey && (e.key === "s" || e.key === "S")) { e.preventDefault(); return; }
+      // Block Ctrl+A (select all) outside inputs
+      if (e.ctrlKey && (e.key === "a" || e.key === "A") && !["INPUT","TEXTAREA"].includes(e.target.tagName)) { e.preventDefault(); return; }
+      // Block Ctrl+C outside inputs
+      if (e.ctrlKey && (e.key === "c" || e.key === "C") && !["INPUT","TEXTAREA"].includes(e.target.tagName)) { e.preventDefault(); return; }
+    };
+    const handleDragStart = (e) => e.preventDefault();
+
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("dragstart", handleDragStart);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("dragstart", handleDragStart);
+    };
+  }, []);
+}
+
 function ProtectedRoute({ user, loading, children }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,6 +71,9 @@ function AppRouter() {
   const [showAuthCallback, setShowAuthCallback] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Enable content protection
+  useContentProtection();
 
   // Check for session_id synchronously during render
   const hasSessionId = location.hash?.includes("session_id=");

@@ -86,7 +86,7 @@ async def exchange_session(request: Request, response: Response):
             "name": name,
             "picture": picture,
             "plan": "free",
-            "wallet_balance": 100.0,
+            "wallet_balance": 10000.0,
             "created_at": datetime.now(timezone.utc).isoformat()
         })
     else:
@@ -248,7 +248,7 @@ async def upgrade_plan(request: Request):
     user = await get_current_user(request)
     body = await request.json()
     plan = body.get("plan", "premium")
-    cost = 49.0 if plan == "premium" else 0
+    cost = 9999.0 if plan == "premium" else 2499.0 if plan == "monthly" else 0
     current = user.get("wallet_balance", 0)
     if current < cost:
         raise HTTPException(status_code=400, detail="Insufficient balance")
@@ -263,7 +263,7 @@ async def upgrade_plan(request: Request):
             "user_id": user["user_id"],
             "type": "debit",
             "amount": cost,
-            "description": f"Plan upgrade to {plan}",
+            "description": f"Plan upgrade to {plan} (INR)",
             "created_at": datetime.now(timezone.utc).isoformat()
         })
     return {"balance": new_balance, "plan": plan}
@@ -314,13 +314,13 @@ Return ONLY this JSON structure:
         # Debit wallet
         await db.users.update_one(
             {"user_id": user["user_id"]},
-            {"$inc": {"wallet_balance": -5}}
+            {"$inc": {"wallet_balance": -199}}
         )
         await db.wallet_transactions.insert_one({
             "transaction_id": f"txn_{uuid.uuid4().hex[:12]}",
             "user_id": user["user_id"],
             "type": "debit",
-            "amount": 5,
+            "amount": 199,
             "description": "AI content generation",
             "created_at": datetime.now(timezone.utc).isoformat()
         })
@@ -442,13 +442,13 @@ async def generate_logo(request: Request):
         # Debit wallet
         await db.users.update_one(
             {"user_id": user["user_id"]},
-            {"$inc": {"wallet_balance": -10}}
+            {"$inc": {"wallet_balance": -499}}
         )
         await db.wallet_transactions.insert_one({
             "transaction_id": f"txn_{uuid.uuid4().hex[:12]}",
             "user_id": user["user_id"],
             "type": "debit",
-            "amount": 10,
+            "amount": 499,
             "description": "Logo generation",
             "created_at": datetime.now(timezone.utc).isoformat()
         })
@@ -489,13 +489,13 @@ async def generate_image(request: Request):
 
         await db.users.update_one(
             {"user_id": user["user_id"]},
-            {"$inc": {"wallet_balance": -5}}
+            {"$inc": {"wallet_balance": -299}}
         )
         await db.wallet_transactions.insert_one({
             "transaction_id": f"txn_{uuid.uuid4().hex[:12]}",
             "user_id": user["user_id"],
             "type": "debit",
-            "amount": 5,
+            "amount": 299,
             "description": "Image generation",
             "created_at": datetime.now(timezone.utc).isoformat()
         })
@@ -621,21 +621,35 @@ async def publish_to_github(request: Request):
     <meta name="keywords" content="{', '.join(seo.get('keywords', []))}">
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        body {{ font-family: 'Segoe UI', sans-serif; color: #333; }}
-        .hero {{ background: linear-gradient(135deg, #0033FF, #6366f1); color: white; padding: 80px 20px; text-align: center; }}
-        .hero h1 {{ font-size: 3rem; margin-bottom: 1rem; }}
+        body {{ font-family: -apple-system, 'Segoe UI', Helvetica, sans-serif; color: #1D1D1F; -webkit-user-select: none; -moz-user-select: none; user-select: none; }}
+        input, textarea {{ -webkit-user-select: text; user-select: text; }}
+        .hero {{ background: linear-gradient(135deg, #0033FF 0%, #4F6AFF 100%); color: white; padding: 100px 20px; text-align: center; }}
+        .hero h1 {{ font-size: 3.5rem; margin-bottom: 1rem; font-weight: 600; letter-spacing: -0.03em; }}
         .hero p {{ font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem; }}
-        .hero .cta {{ background: white; color: #0033FF; padding: 14px 32px; border: none; font-size: 1.1rem; cursor: pointer; font-weight: bold; }}
-        .section {{ padding: 60px 20px; max-width: 1000px; margin: 0 auto; }}
-        .section h2 {{ font-size: 2rem; margin-bottom: 1rem; }}
-        .services-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 24px; }}
-        .service-card {{ border: 1px solid #e5e7eb; padding: 24px; }}
-        .service-card h3 {{ margin-bottom: 8px; }}
-        .price {{ color: #0033FF; font-weight: bold; }}
-        .contact {{ background: #f9fafb; padding: 60px 20px; text-align: center; }}
-        footer {{ background: #0a0a0a; color: white; padding: 40px 20px; text-align: center; }}
-        footer p {{ opacity: 0.7; }}
+        .hero .cta {{ background: white; color: #0033FF; padding: 16px 36px; border: none; font-size: 1rem; cursor: pointer; font-weight: 600; transition: all 0.3s; }}
+        .hero .cta:hover {{ transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.2); }}
+        .section {{ padding: 80px 20px; max-width: 1000px; margin: 0 auto; }}
+        .section h2 {{ font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }}
+        .services-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }}
+        .service-card {{ border: 1px solid #F5F5F7; padding: 32px; transition: all 0.3s; }}
+        .service-card:hover {{ box-shadow: 0 12px 40px rgba(0,0,0,0.06); transform: translateY(-4px); }}
+        .service-card h3 {{ margin-bottom: 8px; font-weight: 600; }}
+        .price {{ color: #0033FF; font-weight: 700; font-size: 1.1rem; }}
+        .contact {{ background: #FAFAFA; padding: 80px 20px; text-align: center; }}
+        footer {{ background: #1D1D1F; color: white; padding: 48px 20px; text-align: center; }}
+        footer p {{ opacity: 0.6; font-size: 0.875rem; }}
     </style>
+    <script>
+        // Content Protection
+        document.addEventListener('contextmenu', function(e) {{ e.preventDefault(); }});
+        document.addEventListener('keydown', function(e) {{
+            if (e.key === 'F12') {{ e.preventDefault(); }}
+            if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) {{ e.preventDefault(); }}
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {{ e.preventDefault(); }}
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {{ e.preventDefault(); }}
+        }});
+        document.addEventListener('dragstart', function(e) {{ e.preventDefault(); }});
+    </script>
 </head>
 <body>
     <section class="hero">
@@ -646,7 +660,7 @@ async def publish_to_github(request: Request):
     <section class="section">
         <h2>{about.get('title', 'About Us')}</h2>
         <p>{about.get('description', '')}</p>
-        <p style="margin-top:12px;color:#6b7280;">{about.get('mission', '')}</p>
+        <p style="margin-top:12px;color:#86868B;font-style:italic;">{about.get('mission', '')}</p>
     </section>
     <section class="section">
         <h2>Our Services</h2>
@@ -654,9 +668,9 @@ async def publish_to_github(request: Request):
     </section>
     <section class="contact">
         <h2>Contact Us</h2>
-        <p style="margin-top:12px;">Email: {contact_info.get('email', '')}</p>
-        <p>Phone: {contact_info.get('phone', '')}</p>
-        <p>{contact_info.get('address', '')}</p>
+        <p style="margin-top:16px;color:#86868B;">Email: {contact_info.get('email', '')}</p>
+        <p style="color:#86868B;">Phone: {contact_info.get('phone', '')}</p>
+        <p style="color:#86868B;">{contact_info.get('address', '')}</p>
     </section>
     <footer>
         <p>&copy; 2026 {biz_name}. Built with LaunchPad AI.</p>
@@ -701,13 +715,13 @@ async def publish_to_github(request: Request):
         # Debit wallet for publishing
         await db.users.update_one(
             {"user_id": user["user_id"]},
-            {"$inc": {"wallet_balance": -20}}
+            {"$inc": {"wallet_balance": -999}}
         )
         await db.wallet_transactions.insert_one({
             "transaction_id": f"txn_{uuid.uuid4().hex[:12]}",
             "user_id": user["user_id"],
             "type": "debit",
-            "amount": 20,
+            "amount": 999,
             "description": f"Published {project['name']} to GitHub",
             "created_at": datetime.now(timezone.utc).isoformat()
         })

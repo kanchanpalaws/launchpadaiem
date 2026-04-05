@@ -15,7 +15,7 @@ export default function Navbar({ user, onLogout }) {
   };
 
   return (
-    <nav className="glass fixed top-0 left-0 right-0 z-50" data-testid="navbar">
+    <nav className="glass fixed top-0 left-0 right-0 z-50" data-testid="navbar" style={{ backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", background: "rgba(255,255,255,0.72)" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 no-underline" data-testid="nav-logo">
           <div className="w-8 h-8 bg-[#0033FF] flex items-center justify-center">

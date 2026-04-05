@@ -13,8 +13,8 @@ class LaunchPadAPITester:
     def __init__(self, base_url="https://instant-bizbuilder.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
-        self.session_token = "test_session_1775374538372"  # From mongosh setup
-        self.user_id = "test-user-1775374538372"
+        self.session_token = "test_session_1775376458998"  # From mongosh setup
+        self.user_id = "test-user-1775376458998"
         self.headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.session_token}'
@@ -163,10 +163,10 @@ class LaunchPadAPITester:
                 self.log_test("Update project", False, f"Request failed: {e}")
 
     def test_wallet_operations(self):
-        """Test wallet operations"""
+        """Test wallet operations including INR pricing"""
         print("\n💰 Testing Wallet Operations...")
         
-        # Test GET wallet
+        # Test GET wallet - check initial balance is ₹50,000 (set in mongosh)
         try:
             response = requests.get(f"{self.api_url}/wallet", headers=self.headers)
             success = response.status_code == 200
@@ -174,7 +174,12 @@ class LaunchPadAPITester:
                 wallet = response.json()
                 balance = wallet.get('balance', 0)
                 plan = wallet.get('plan', 'unknown')
-                details = f"Balance: ${balance}, Plan: {plan}"
+                details = f"Balance: ₹{balance}, Plan: {plan}"
+                # Check if balance shows INR amounts correctly
+                if balance == 50000:
+                    details += " (Initial balance correct)"
+                else:
+                    details += f" (Expected ₹50,000, got ₹{balance})"
             else:
                 details = f"Status: {response.status_code}"
             
@@ -184,18 +189,65 @@ class LaunchPadAPITester:
 
         # Test CREDIT wallet
         try:
-            credit_data = {"amount": 25, "description": "API test credit"}
+            credit_data = {"amount": 1000, "description": "API test credit"}
             response = requests.post(f"{self.api_url}/wallet/credit", headers=self.headers, json=credit_data)
             success = response.status_code == 200
             if success:
                 result = response.json()
-                details = f"New balance: ${result.get('balance', 0)}"
+                details = f"New balance: ₹{result.get('balance', 0)}"
             else:
                 details = f"Status: {response.status_code}, Response: {response.text[:200]}"
             
             self.log_test("Credit wallet", success, details)
         except Exception as e:
             self.log_test("Credit wallet", False, f"Request failed: {e}")
+
+        # Test UPGRADE wallet - check premium plan costs ₹9,999
+        try:
+            # First check current plan
+            response = requests.get(f"{self.api_url}/wallet", headers=self.headers)
+            if response.status_code == 200:
+                current_balance = response.json().get('balance', 0)
+                
+                # Test upgrade to premium (should cost ₹9,999)
+                upgrade_data = {"plan": "premium"}
+                response = requests.post(f"{self.api_url}/wallet/upgrade", headers=self.headers, json=upgrade_data)
+                success = response.status_code == 200
+                if success:
+                    result = response.json()
+                    new_balance = result.get('balance', 0)
+                    cost = current_balance - new_balance
+                    plan = result.get('plan', 'unknown')
+                    details = f"Upgraded to {plan}, Cost: ₹{cost}, New balance: ₹{new_balance}"
+                    # Check if upgrade cost is ₹9,999
+                    if cost == 9999:
+                        details += " (Upgrade cost correct)"
+                    else:
+                        details += f" (Expected ₹9,999, got ₹{cost})"
+                else:
+                    details = f"Status: {response.status_code}, Response: {response.text[:200]}"
+                
+                self.log_test("Wallet upgrade to premium", success, details)
+            else:
+                self.log_test("Wallet upgrade to premium", False, "Could not get current balance")
+        except Exception as e:
+            self.log_test("Wallet upgrade to premium", False, f"Request failed: {e}")
+
+        # Test monthly plan upgrade cost
+        try:
+            upgrade_data = {"plan": "monthly"}
+            response = requests.post(f"{self.api_url}/wallet/upgrade", headers=self.headers, json=upgrade_data)
+            success = response.status_code == 200
+            if success:
+                result = response.json()
+                plan = result.get('plan', 'unknown')
+                details = f"Monthly plan upgrade successful, Plan: {plan}"
+            else:
+                details = f"Status: {response.status_code}, Response: {response.text[:200]}"
+            
+            self.log_test("Wallet upgrade to monthly", success, details)
+        except Exception as e:
+            self.log_test("Wallet upgrade to monthly", False, f"Request failed: {e}")
 
     def test_ai_endpoints(self):
         """Test AI generation endpoints"""
